@@ -1,5 +1,9 @@
 <div id="page-content">
 	<h1 class="text-center mt-4 ">Alpha bloggers</h1>
+
+	<div class="flickr_pagination">
+    <%= will_paginate @users, :container => false %>
+  </div>
   <div class="container">
     <% @users.each do |user| %>
     	<div class="row justify-content-md-center">
@@ -14,7 +18,9 @@
               </h5>
 							<p class="card-text"><%= pluralize(user.articles.count, "article" ) %></p>
 							<%= link_to 'View profile', user, class: "btn btn-outline-success" %>
-							<%= link_to 'Edit profile', edit_user_path(user), class: "btn btn-outline-info" %>
+							<% if logged_in? and user == current_user%>
+								<%= link_to 'Edit profile', edit_user_path(user), class: "btn btn-outline-info" %>
+							<% end %>
 						</div>
 						<div class="card-footer text-muted">
 							<small>
@@ -26,6 +32,10 @@
     	</div>
     <%  end %>
   </div>
+	<div class="flickr_pagination mb-4">
+    <%= will_paginate @articles, :container => false %>
+  </div>
 
 
 </div>
+
